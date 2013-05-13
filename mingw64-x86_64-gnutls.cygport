@@ -1,0 +1,36 @@
+CROSS_HOST="x86_64-w64-mingw32"
+inherit cross
+
+NAME="mingw64-x86_64-gnutls"
+VERSION=3.1.11
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="GnuTLS for Win64 toolchain"
+DESCRIPTION="GnuTLS is a secure communications library implementing the SSL,
+TLS and DTLS protocols and technologies around them. It provides a simple C
+language application programming interface (API) to access the secure
+communications protocols as well as APIs to parse and write X.509, PKCS#12,
+OpenPGP and other required structures."
+HOMEPAGE="http://gnutls.org/"
+SRC_URI="ftp://ftp.gnutls.org/gcrypt/gnutls/v${VERSION%.*}/gnutls-${VERSION}.tar.xz
+         ftp://ftp.gnutls.org/gcrypt/gnutls/v${VERSION%.*}/gnutls-${VERSION}.tar.xz.sig"
+SRC_DIR="gnutls-${VERSION}"
+
+DIFF_EXCLUDES="gnutls.info* m4"
+
+CYGCONF_ARGS="
+  --disable-gtk-doc
+  --enable-cxx
+  --disable-guile
+  --disable-hardware-acceleration
+"
+
+MAKEOPTS="-j1"
+
+src_install() {
+	cd ${B}
+	cyginstall bin_PROGRAMS=
+
+	rm -f ${D}${CROSS_BINDIR}/*.def
+	rm -fr ${D}${CROSS_DATADIR}/{info,locale,man}/
+}
