@@ -2,7 +2,7 @@ CROSS_HOST="x86_64-w64-mingw32"
 inherit cross
 
 NAME="mingw64-x86_64-gnutls"
-VERSION=3.2.6
+VERSION=3.2.12
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="GnuTLS for Win64 toolchain"
@@ -12,11 +12,11 @@ language application programming interface (API) to access the secure
 communications protocols as well as APIs to parse and write X.509, PKCS#12,
 OpenPGP and other required structures."
 HOMEPAGE="http://gnutls.org/"
-SRC_URI="ftp://ftp.gnutls.org/gcrypt/gnutls/v${VERSION%.*}/gnutls-${VERSION}.tar.xz
-         ftp://ftp.gnutls.org/gcrypt/gnutls/v${VERSION%.*}/gnutls-${VERSION}.tar.xz.sig"
+SRC_URI="ftp://ftp.gnutls.org/gcrypt/gnutls/v${VERSION%.*}/gnutls-${VERSION}.1.tar.xz
+         ftp://ftp.gnutls.org/gcrypt/gnutls/v${VERSION%.*}/gnutls-${VERSION}.1.tar.xz.sig"
 SRC_DIR="gnutls-${VERSION}"
 
-DIFF_EXCLUDES="gnutls.info* m4"
+DIFF_EXCLUDES="gnutls.info* m4 *-args.*"
 
 CYGCONF_ARGS="
   --disable-gtk-doc
