@@ -3,7 +3,7 @@ inherit cross
 
 NAME="mingw64-x86_64-gnutls"
 VERSION=3.3.17.1
-RELEASE=1
+RELEASE=2
 CATEGORY="Devel"
 SUMMARY="GnuTLS for Win64 toolchain"
 DESCRIPTION="GnuTLS is a secure communications library implementing the SSL,
