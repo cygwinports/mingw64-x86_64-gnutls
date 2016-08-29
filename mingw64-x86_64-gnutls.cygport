@@ -2,8 +2,8 @@ CROSS_HOST="x86_64-w64-mingw32"
 inherit cross
 
 NAME="mingw64-x86_64-gnutls"
-VERSION=3.3.17.1
-RELEASE=2
+VERSION=3.3.24
+RELEASE=1
 CATEGORY="Devel"
 SUMMARY="GnuTLS for Win64 toolchain"
 DESCRIPTION="GnuTLS is a secure communications library implementing the SSL,
@@ -15,6 +15,7 @@ HOMEPAGE="http://gnutls.org/"
 SRC_URI="ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/gnutls-${VERSION}.tar.xz
          ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/gnutls-${VERSION}.tar.xz.sig"
 SRC_DIR="gnutls-${VERSION}"
+PATCH_URI="3.3.24-ws2tcpip.patch"
 
 DIFF_EXCLUDES="gnutls.info* m4 *-args.*"
 
