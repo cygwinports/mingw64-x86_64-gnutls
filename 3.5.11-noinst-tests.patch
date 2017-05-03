@@ -1,0 +1,21 @@
+--- origsrc/gnutls-3.5.11/tests/windows/Makefile.am	2016-02-03 02:26:17.000000000 -0600
++++ src/gnutls-3.5.11/tests/windows/Makefile.am	2017-05-02 12:19:52.562643200 -0500
+@@ -40,15 +40,15 @@ LDADD = $(top_builddir)/tests/libutils.l
+ ctests =
+ 
+ if WINDOWS
+-lib_LTLIBRARIES = ncrypt.la crypt32.la
++noinst_LTLIBRARIES = ncrypt.la crypt32.la
+ 
+ ncrypt_la_SOURCES = ncrypt.c
+ crypt32_la_SOURCES = crypt32.c
+ 
+ ncrypt_la_LIBADD = ../../gl/libgnu.la ../../lib/libgnutls.la -lmsvcrt -lkernel32 -luser32
+ crypt32_la_LIBADD = ../../gl/libgnu.la ../../lib/libgnutls.la -lmsvcrt -lkernel32 -luser32
+-ncrypt_la_LDFLAGS = -module -no-undefined -avoid-version -Wl,--add-stdcall-alias
+-crypt32_la_LDFLAGS = -module -no-undefined -avoid-version -Wl,--add-stdcall-alias
++ncrypt_la_LDFLAGS = -module -no-undefined -avoid-version -Wl,--add-stdcall-alias -rpath `pwd`
++crypt32_la_LDFLAGS = -module -no-undefined -avoid-version -Wl,--add-stdcall-alias -rpath `pwd`
+ 
+ 
+ cng_windows_DEPENDENCIES = ncrypt.la crypt32.la

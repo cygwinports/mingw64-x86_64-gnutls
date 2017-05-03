@@ -2,8 +2,8 @@ CROSS_HOST="x86_64-w64-mingw32"
 inherit cross
 
 NAME="mingw64-x86_64-gnutls"
-VERSION=3.3.24
-RELEASE=2
+VERSION=3.5.11
+RELEASE=1
 CATEGORY="Devel"
 SUMMARY="GnuTLS for Win64 toolchain"
 DESCRIPTION="GnuTLS is a secure communications library implementing the SSL,
@@ -12,31 +12,29 @@ language application programming interface (API) to access the secure
 communications protocols as well as APIs to parse and write X.509, PKCS#12,
 OpenPGP and other required structures."
 HOMEPAGE="http://gnutls.org/"
-SRC_URI="ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/gnutls-${VERSION}.tar.xz
-         ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/gnutls-${VERSION}.tar.xz.sig"
+#SRC_URI="ftp://ftp.gnutls.org/gcrypt/gnutls/v${VERSION%.*}/gnutls-${VERSION}.tar.xz"
+sha512sum=b47b9c6f270454ba626ca17b81c638993563ae6a9c6444e4e2392ee03c5673b790ab7cba52bab58bc1fa4b88bacc44ff11df26e4fc3c727eeb5624c3af8dcd38
+SRC_URI="http://pkgs.fedoraproject.org/repo/pkgs/gnutls/gnutls-${VERSION}-hobbled.tar.xz/sha512/${sha512sum}/gnutls-${VERSION}-hobbled.tar.xz"
 SRC_DIR="gnutls-${VERSION}"
-PATCH_URI="
-	https://gitlab.com/gnutls/gnutls/commit/c089e01.diff#/gnutls-3.3-CVE-2016-7444.patch
-	3.3.24-ws2tcpip.patch
-"
+PATCH_URI="3.5.11-noinst-tests.patch"
 
 DIFF_EXCLUDES="gnutls.info* m4 *-args.*"
 
-# if native autogen is found, *cross* libopts becomes required
 CYGCONF_ARGS="
   --disable-gtk-doc
   --enable-cxx
   --disable-guile
   --disable-hardware-acceleration
-  ac_cv_prog_AUTOGEN=/bin/true
+  --disable-non-suiteb-curves
+  --disable-openssl-compatibility
+  --disable-srp-authentication
+  --enable-local-libopts
 "
-
-MAKEOPTS="-j1"
 
 src_install() {
 	cd ${B}
-	cyginstall bin_PROGRAMS=
+	cyginstall bin_PROGRAMS= html_DATA=
 
-	rm -f ${D}${CROSS_BINDIR}/*.def
+	rm -f ${D}${CROSS_LIBDIR}/*.def
 	rm -fr ${D}${CROSS_DATADIR}/{info,locale,man}/
 }
